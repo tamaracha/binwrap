@@ -2,6 +2,7 @@
 
 [![Build Status](https://github.com/avh4/binwrap/workflows/CI/badge.svg)](https://github.com/avh4/binwrap/actions?query=workflow%3ACI)
 [![npm](https://img.shields.io/npm/v/binwrap.svg)](https://www.npmjs.com/package/binwrap)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
 This package helps with distributing binaries via npm.
@@ -26,10 +27,7 @@ Now create your npm installer: Make a `package.json` that looks like this:
     "prepublish": "npm test"
   },
   "license": "BSD-3-Clause",
-  "files": [
-    "index.js",
-    "bin"
-  ],
+  "files": ["index.js", "bin"],
   "bin": {
     "myapp-cli": "bin/myapp-cli"
   },
@@ -42,31 +40,28 @@ Now create your npm installer: Make a `package.json` that looks like this:
 Then create your `index.js` file like this:
 
 ```javascript
-var binwrap = require("binwrap");
-var path = require("path");
+var binwrap = require('binwrap')
+var path = require('path')
 
-var packageInfo = require(path.join(__dirname, "package.json"));
-var version = packageInfo.version;
-var root = "https://dl.bintray.com/me/myApp/" + version;
+var packageInfo = require(path.join(__dirname, 'package.json'))
+var version = packageInfo.version
+var root = 'https://dl.bintray.com/me/myApp/' + version
 
 module.exports = binwrap({
   dirname: __dirname,
-  binaries: [
-    "myapp-cli"
-  ],
+  binaries: ['myapp-cli'],
   urls: {
-    "darwin-x64": root + "/mac-x64.tgz",
-    "linux-x64": root + "/linux-x64.tgz",
-    "win32-x64": root + "/win-i386.zip",
-    "win32-ia32": root + "/win-i386.zip"
+    'darwin-x64': root + '/mac-x64.tgz',
+    'linux-x64': root + '/linux-x64.tgz',
+    'win32-x64': root + '/win-i386.zip',
+    'win32-ia32': root + '/win-i386.zip'
   }
-});
+})
 ```
 
 Then run `npm test` to verify that your packages are published correctly.
 
 Finally, run `npm publish` when you are ready to publish your installer.
-
 
 ## Javascript API
 
@@ -75,5 +70,5 @@ as follows (in this example, "my-package" is a published npm package that uses b
 and has a `my-package-cli` binary):
 
 ```js
-const cliPath = require('my-package').paths['my-package-cli'];
+const cliPath = require('my-package').paths['my-package-cli']
 ```

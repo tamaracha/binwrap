@@ -52,12 +52,9 @@ function untgz (url, path, options) {
     if (verbose) {
       console.log('Downloading binaries from ' + url)
     }
-    return fetch(url)
-      .then(function (response) {
-        response.body
-          .pipe(gunzip)
-          .pipe(untar)
-      })
+    return fetch(url).then(function (response) {
+      response.body.pipe(gunzip).pipe(untar)
+    })
   })
 }
 
@@ -93,10 +90,9 @@ function unzipUrl (url, path, options) {
     if (verbose) {
       console.log('Downloading binaries from ' + url)
     }
-    return fetch(url)
-      .then(function (response) {
-        response.body.pipe(writeStream)
-      })
+    return fetch(url).then(function (response) {
+      response.body.pipe(writeStream)
+    })
   })
 }
 

@@ -21,9 +21,11 @@ describe('binwrap', function () {
 
   beforeEach(function () {
     this.timeout(60000)
-    return exec('rm -Rf test_app/bin/echoMe test_app/unpacked_bin/').then(function () {
-      return exec('(cd test_app && npm run-script prepare)')
-    })
+    return exec('rm -Rf test_app/bin/echoMe test_app/unpacked_bin/').then(
+      function () {
+        return exec('(cd test_app && npm run-script prepare)')
+      }
+    )
   })
 
   describe('installing normally', function () {
@@ -42,7 +44,9 @@ describe('binwrap', function () {
         '(cd test_app && ./node_modules/.bin/binwrap-install darwin x64)'
       ).then(function () {
         testServer.close()
-        return exec('BINWRAP_PLATFORM=darwin BINWRAP_ARCH=x64 test_app/bin/echoMe A B C').then(function (result) {
+        return exec(
+          'BINWRAP_PLATFORM=darwin BINWRAP_ARCH=x64 test_app/bin/echoMe A B C'
+        ).then(function (result) {
           expect(result.stdout).to.equal('Me! A B C\n')
         })
       })
@@ -54,7 +58,9 @@ describe('binwrap', function () {
         '(cd test_app && ./node_modules/.bin/binwrap-install win32 x64)'
       ).then(function () {
         testServer.close()
-        return exec('BINWRAP_PLATFORM=win32 BINWRAP_ARCH=x64 test_app/bin/echoMe A B C').then(function (result) {
+        return exec(
+          'BINWRAP_PLATFORM=win32 BINWRAP_ARCH=x64 test_app/bin/echoMe A B C'
+        ).then(function (result) {
           expect(result.stdout).to.equal('Me.exe! A B C\n')
         })
       })
@@ -64,16 +70,20 @@ describe('binwrap', function () {
       this.timeout(60000)
       return exec(
         '(cd test_app && ./node_modules/.bin/binwrap-install darwin x64)'
-      ).then(function () {
-        return exec(
-          '(cd test_app && ./node_modules/.bin/binwrap-install darwin x64)'
-        )
-      }).then(function () {
-        testServer.close()
-        return exec('BINWRAP_PLATFORM=darwin BINWRAP_ARCH=x64 test_app/bin/echoMe A B C').then(function (result) {
-          expect(result.stdout).to.equal('Me! A B C\n')
+      )
+        .then(function () {
+          return exec(
+            '(cd test_app && ./node_modules/.bin/binwrap-install darwin x64)'
+          )
         })
-      })
+        .then(function () {
+          testServer.close()
+          return exec(
+            'BINWRAP_PLATFORM=darwin BINWRAP_ARCH=x64 test_app/bin/echoMe A B C'
+          ).then(function (result) {
+            expect(result.stdout).to.equal('Me! A B C\n')
+          })
+        })
     })
   })
 
@@ -84,14 +94,18 @@ describe('binwrap', function () {
 
     it('wraps *nix executables in tgz files', function () {
       this.timeout(60000)
-      return exec('BINWRAP_PLATFORM=darwin BINWRAP_ARCH=x64 test_app/bin/echoMe A B C').then(function (result) {
+      return exec(
+        'BINWRAP_PLATFORM=darwin BINWRAP_ARCH=x64 test_app/bin/echoMe A B C'
+      ).then(function (result) {
         expect(result.stdout).to.equal('Me! A B C\n')
       })
     })
 
     it('wraps Windows executables in zip files', function () {
       this.timeout(60000)
-      return exec('BINWRAP_PLATFORM=win32 BINWRAP_ARCH=x64 test_app/bin/echoMe A B C').then(function (result) {
+      return exec(
+        'BINWRAP_PLATFORM=win32 BINWRAP_ARCH=x64 test_app/bin/echoMe A B C'
+      ).then(function (result) {
         expect(result.stdout).to.equal('Me.exe! A B C\n')
       })
     })
@@ -121,7 +135,9 @@ describe('binwrap', function () {
     it('provides absolute paths to the binwrapped binaries', function () {
       const api = require(path.join(__dirname, '..', 'test_app'))
 
-      expect(api.paths.echoMe).to.equal(path.resolve(path.join(__dirname, '..', 'test_app', 'bin', 'echoMe')))
+      expect(api.paths.echoMe).to.equal(
+        path.resolve(path.join(__dirname, '..', 'test_app', 'bin', 'echoMe'))
+      )
     })
   })
 })

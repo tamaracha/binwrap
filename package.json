@@ -4,8 +4,9 @@
   "description": "Package cross-platform binaries",
   "main": "index.js",
   "scripts": {
-    "lint": "standard --fix",
-    "test": "(cd test_app && ./build_packages.sh && npm install ../) && mocha"
+    "lint": "prettier -w . && standard --fix",
+    "test": "(cd test_app && ./build_packages.sh && npm install ../) && mocha",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -36,12 +37,22 @@
     "chai": "^4.3.0",
     "child-process-promise": "^2.2.1",
     "http-server": "^0.12.3",
+    "lint-staged": "^11.0.0",
     "mocha": "^8.2.1",
-    "standard": "^16.0.3"
+    "prettier": "^2.3.1",
+    "standard": "^16.0.3",
+    "husky": "^6.0.0"
   },
   "dependencies": {
     "node-fetch": "^3.0.0-beta.9",
     "tar": "^6.1.0",
     "unzip-stream": "^0.3.1"
+  },
+  "lint-staged": {
+    "*.{json,md}": "prettier -w",
+    "*.js": [
+      "prettier -w",
+      "standard --fix"
+    ]
   }
 }
