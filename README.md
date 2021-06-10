@@ -1,4 +1,8 @@
-[![Build Status](https://github.com/avh4/binwrap/workflows/CI/badge.svg)](https://github.com/avh4/binwrap/actions?query=workflow%3ACI) [![npm](https://img.shields.io/npm/v/binwrap.svg)](https://www.npmjs.com/package/binwrap)
+# Readme
+
+[![Build Status](https://github.com/avh4/binwrap/workflows/CI/badge.svg)](https://github.com/avh4/binwrap/actions?query=workflow%3ACI)
+[![npm](https://img.shields.io/npm/v/binwrap.svg)](https://www.npmjs.com/package/binwrap)
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
 This package helps with distributing binaries via npm.
 
